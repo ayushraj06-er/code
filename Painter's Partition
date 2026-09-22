@@ -1,0 +1,64 @@
+class Solution {
+public:
+
+    long long returnSum(vector<int>& arr, int n) {
+        long long sum = 0;
+
+        for(int i = 0; i < n; i++) {
+            sum += arr[i];
+        }
+
+        return sum;
+    }
+
+    int cntPainter(vector<int>& arr, int n, long long mid) {
+
+        int p = 1;
+        long long unit = 0;
+
+        for(int i = 0; i < n; i++) {
+
+            if(unit + arr[i] <= mid) {
+                unit += arr[i];
+            }
+            else {
+                p++;
+                unit = arr[i];
+            }
+        }
+
+        return p;
+    }
+
+    int paint(int A, int B, vector<int>& arr) {
+
+        int n = arr.size();
+
+        long long st = *max_element(arr.begin(), arr.end());
+        long long end = returnSum(arr, n);
+
+        if(A >= n) {
+            return (st * B) % 10000003;
+        }
+
+        if(A == 1) {
+            return (end * B) % 10000003;
+        }
+
+        while(st <= end) {
+
+            long long mid = (st+end) / 2;
+
+            int painter = cntPainter(arr, n, mid);
+
+            if(painter <= A) {
+                end = mid - 1;
+            }
+            else {
+                st = mid + 1;
+            }
+        }
+
+        return (st * B) % 10000003;
+    }
+};
