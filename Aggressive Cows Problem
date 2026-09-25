@@ -1,1 +1,30 @@
-
+class Solution {
+public:
+    int cntCows(vector<int>&arr,int n,long long mid){
+        int c=1;
+        int last=arr[0];
+        for(int i=1;i<n;i++){
+            if(arr[i]-last>=mid){
+                c++;
+                last=arr[i];
+            }
+        }
+        return c;
+    }
+    int aggressiveCows(vector<int> &arr, int k) {
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        int st=1;
+        int end=*max_element(arr.begin(),arr.end());
+        while(st<=end){
+            long long mid=(st+end)/2;
+            int cows=cntCows(arr,n,mid);
+            if(cows>=k){
+                st=mid+1;
+            }else{
+                end=mid-1;
+            }
+        }
+        return st-1;
+    }
+};
