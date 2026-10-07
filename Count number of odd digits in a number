@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int countOddDigit(int n) {
+        if(n==0)return 0;
+        int cnt=0;
+        while(n>0){
+            int temp=n%10;
+            if(temp%2!=0)cnt++;
+            n/=10;
+        }
+        return cnt;
+    }
+};
